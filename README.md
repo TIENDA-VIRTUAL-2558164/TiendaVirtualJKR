@@ -8,9 +8,9 @@ En este repositorio encontrarás tanto la documentación como el código fuente 
 
 ## Documentación 
 ### Documentación Técnica: 
-  -Aquí encontrarás detalles sobre la arquitectura del proyecto, las tecnologías utilizadas, las instrucciones para la configuración del entorno de desarrollo y despliegue, así como cualquier otra información técnica relevante.
+  Aquí encontrarás detalles sobre la arquitectura del proyecto, las tecnologías utilizadas, las instrucciones para la configuración del entorno de desarrollo y despliegue, así como cualquier otra información técnica relevante.
 ### Documentación de Usuario: 
-  -Esta sección está dedicada a proporcionar instrucciones claras y concisas sobre cómo utilizar la tienda virtual JKR. Incluye guías de navegación, descripción de funcionalidades y cualquier otra información útil para los usuarios finales.
+  Esta sección está dedicada a proporcionar instrucciones claras y concisas sobre cómo utilizar la tienda virtual JKR. Incluye guías de navegación, descripción de funcionalidades y cualquier otra información útil para los usuarios finales.
 
 ## Código Fuente
 Directorio 'src': Contiene todo el código fuente de la aplicación, incluyendo los componentes front-end y back-end necesarios para el funcionamiento de la tienda virtual.
@@ -21,18 +21,18 @@ El proyecto JKR Tienda Virtual ha sido desarrollado utilizando las siguientes te
 
 ## Frontend:
 
--Angular
--Bootstrap
--Materialize
+- Angular
+- Bootstrap
+- Materialize
 
 ## Backend:
 
--Node.js
--Express
+- Node.js
+- Express
 
 ## Base de Datos:
 
--MongoDB
+- MongoDB
 
 ## Contacto
 Si tienes alguna pregunta o comentario sobre el proyecto JKR Tienda Virtual, no dudes en ponerte en contacto con el equipo de desarrollo a través de este medio medios:
