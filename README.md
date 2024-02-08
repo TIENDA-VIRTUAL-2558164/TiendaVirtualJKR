@@ -1,5 +1,4 @@
-
-README - Proyecto JKR Tienda Virtual
+# README - Proyecto JKR Tienda Virtual
 ¡Bienvenido/a al repositorio del proyecto JKR Tienda Virtual!
 
 Este proyecto tiene como objetivo principal desarrollar una tienda virtual llamada JKR, donde los usuarios podrán explorar y adquirir una variedad de productos de diferentes categorías desde la comodidad de sus hogares.
