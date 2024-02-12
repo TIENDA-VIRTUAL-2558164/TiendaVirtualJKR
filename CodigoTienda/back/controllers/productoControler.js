@@ -16,6 +16,7 @@ const registro_producto_admin = async function (req,res) {
             var portada_name = name[2];
 
             data.portada = portada_name;
+            
             data.slug = data.titulo.toLowerCase().replace(/ /g,'-').replace(/[^\w-]+/g,'');
             let reg = await Producto.create(data);
 
@@ -334,7 +335,7 @@ const listar_productos_tienda = async function (req, res) {
 const info_producto_tienda = async function (req, res) {
     let slug = req.params["slug"];
  
-    let reg = await Producto.find({ titulo: new RegExp(slug, "i") });
+    let reg = await Producto.findOne({ slug: slug });
     res.status(200).send({ data: reg });
  };
 
@@ -353,5 +354,6 @@ module.exports={
     editar_variedad_admin,
     Agregar_galeria_admin,
     Eliminar_img_galeria_admin,
-    listar_productos_tienda
+    listar_productos_tienda,
+    info_producto_tienda
 }
