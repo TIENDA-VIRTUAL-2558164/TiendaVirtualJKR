@@ -1,0 +1,127 @@
+<app-sidebar></app-sidebar>
+
+<!-- Page title-->
+<div class="border-bottom pt-5 mt-2 mb-5">
+    <h1 class="mt-2 mt-md-4 mb-3 pt-5">Productos</h1>
+    <div class="d-flex flex-wrap flex-md-nowrap justify-content-between">
+        <p class="text-muted">Este módulo lista el inventario de todos los Productos de la tienda.</p>
+        <p class="font-size-sm font-weight-medium pl-md-4"><a class="text-nowrap" [routerLink]="['/panel/productos']">Regresar<i
+                    class="cxi-angle-right font-size-base align-middle ml-1"></i></a></p>
+    </div>
+</div>
+
+
+<div class="card box-shadow-sm" *ngIf=" producto != undefined  ">
+    <div class="card-header">
+        <h2 style="margin-bottom: 0px;">Inventario de {{producto.titulo}}</h2>
+      </div>
+      <div class="card-header">
+        <form #inventarioForm="ngForm" (ngSubmit)="registroInventario(inventarioForm)" class="form-inline pt-2">
+
+            <label class="sr-only" for="inline-form-input-name">Cantidad</label>
+            <input required class="form-control mb-3 mr-sm-4"  type="text" placeholder="Cantidad" name="cantidad" [(ngModel)]="FormInventario.cantidad">  
+
+            <label class="sr-only" for="inline-form-input-name">Proveedor</label>
+            <input required class="form-control mb-3 mr-sm-4"  type="text" placeholder="Proveedor" name="proveedor" [(ngModel)]="FormInventario.proveedor">
+
+            <button class="form-control mb-3 mr-sm-4" mat-stroked-button color="primary" type="submit" >Registrar</button>
+            <button class="btn btn-success mr-3 mb-3 " type="button" (click)="DownloadExcel()">Exportar Excel</button>
+
+          </form>
+      </div>
+    <div class="mat-elevation-z8">
+        <div *ngIf="loading; else optionsBlock" class="spinner-container">
+            <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+        </div>
+        <table mat-table [dataSource]="inventario">
+
+                <!-- Name Column -->
+                <ng-template #optionsBlock>
+                    <ng-container matColumnDef="admin">
+                        <th mat-header-cell *matHeaderCellDef> Admin</th>
+                        <td mat-cell *matCellDef="let element"> {{element.admin.nombres}} {{element.admin.apellidos}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="cantidad">
+                        <th mat-header-cell *matHeaderCellDef> Cantidad</th>
+                        <td mat-cell *matCellDef="let element"> {{element.cantidad}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="proveedor">
+                        <th mat-header-cell *matHeaderCellDef> Proveedor </th>
+                        <td mat-cell *matCellDef="let element"> {{element.proveedor}} </td>
+                    </ng-container>
+
+
+                    <ng-container matColumnDef="opciones">
+                        <th mat-header-cell *matHeaderCellDef> Opciones</th>
+                        <td mat-cell *matCellDef="let element">
+
+                            <mat-menu #menu="matMenu">
+                                <button  mat-menu-item (click)="openModal(element._id)">Eliminar Inventario</button>
+                            </mat-menu>
+
+                            <div [matMenuTriggerFor]="menu" class="d-inline-block mb-3 mr-2">
+                                <button mat-button>
+                                    Opciones
+                                </button>
+                            </div>
+                            <!-- Modal -->
+                            <div class="modal fade" id="delete-{{element._id}}" tabindex="-1"
+                                [class.show]="modalVisible[element._id]" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h3 class="modal-title">Eliminar el inventario
+                                            </h3>
+                                            <button mat-icon-button (click)="closeModal(element._id)"
+                                                aria-label="Close">
+                                                <mat-icon>close</mat-icon>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p class="fs-sm">Desea eliminar este Inventario.</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button class="btn btn-secondary btn-sm" type="button"
+                                                (click)="closeModal(element._id)">Cancelar</button>
+                                            <button class="btn btn-primary btn-sm" type="button"
+                                                (click)="eliminarInventario(element._id)">Si, Eliminar</button>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </ng-template>
+
+            
+        </table>
+
+
+    </div>
+    <div class="mat-elevation-z8" *ngIf="inv.length == 0">
+        <h1 class="text-center">No se encontraron registros</h1>
+        <div class="row">
+            <div class="col-2 mx-auto">
+                <img src="assets/img/error.png" alt="" style="width: 100%;">
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+<div class="card box-shadow-sm" *ngIf=" producto == undefined">
+    <h1 class="text-center">No se encontraron registros</h1>
+    <div class="row">
+        <div class="col-2 mx-auto">
+            <img src="assets/img/error.png" alt="" style="width: 100%;">
+        </div>
+    </div>
+    
+</div>

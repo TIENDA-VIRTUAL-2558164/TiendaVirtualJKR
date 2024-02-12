@@ -1,0 +1,16 @@
+.obtener_portada{
+    width: 100px;
+    height: 100px;
+  }
+
+  .modal {
+    display: none;
+  }
+  
+  .modal.show {
+    display: block;
+
+  }
+  .modal-dialog-centered {
+    min-height: calc(45% - 3.5rem) !important;
+}

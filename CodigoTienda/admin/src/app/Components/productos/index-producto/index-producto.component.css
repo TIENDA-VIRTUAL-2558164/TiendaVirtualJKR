@@ -1,0 +1,47 @@
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+.mat-mdc-cell{
+    border-bottom: none !important;
+}
+.mat-mdc-header-cell{
+    background-color: #424551 !important;
+}
+
+.modal {
+    display: none;
+  }
+  
+  .modal.show {
+    display: block;
+
+  }
+  .modal-dialog-centered {
+    min-height: calc(45% - 3.5rem) !important;
+}
+.options-cell {
+  position: relative; /* Asegura que la celda contenedora pueda posicionar elementos hijos. */
+  text-align: center; /* Centra el contenido horizontalmente en la celda. */
+}
+
+.spinner-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%; /* Ajusta esto según tus necesidades */
+}
+.spinner {
+  width: 50px; /* Ajusta el ancho según tus necesidades */
+  height: 50px; /* Ajusta la altura según tus necesidades */
+  color: #3f51b5; /* Cambia el color del spinner según tus preferencias */
+}
+#inputfiltro{
+  width: 45% !important;
+}
+.obtener_portada{
+  width: 50px;
+  height: 50px;
+}
+
+#h3obtener_portada{
+  padding-bottom: 0;
+  margin-bottom: 0;
+}

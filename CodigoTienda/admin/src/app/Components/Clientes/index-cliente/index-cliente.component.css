@@ -1,0 +1,29 @@
+.mat-mdc-cell{
+    border-bottom: none !important;
+}
+.mat-mdc-header-cell{
+    background-color: #424551 !important;
+}
+
+.modal {
+    display: none;
+  }
+  
+  .modal.show {
+    display: block;
+
+  }
+  .modal-dialog-centered {
+    min-height: calc(45% - 3.5rem) !important;
+}
+.options-cell {
+  position: relative; /* Asegura que la celda contenedora pueda posicionar elementos hijos. */
+  text-align: center; /* Centra el contenido horizontalmente en la celda. */
+}
+
+.spinner-container {
+  display: flex;
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center; /* Centra verticalmente */
+  height: 100%; /* Opcional: ajusta la altura del contenedor */
+}
