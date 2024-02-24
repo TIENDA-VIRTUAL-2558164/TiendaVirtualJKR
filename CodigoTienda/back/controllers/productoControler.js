@@ -328,7 +328,7 @@ const Eliminar_img_galeria_admin = async function (req,res) {
 const listar_productos_tienda = async function (req, res) {
    let filtro = req.params["filtro"];
 
-   let reg = await Producto.find({ titulo: new RegExp(filtro, "i") });
+   let reg = await Producto.find({ titulo: new RegExp(filtro, "i") }).sort({createdAt:-1});
    res.status(200).send({ data: reg });
 };
 
@@ -338,6 +338,14 @@ const info_producto_tienda = async function (req, res) {
     let reg = await Producto.findOne({ slug: slug });
     res.status(200).send({ data: reg });
  };
+
+ const listar_productos_tienda_recomendados = async function (req, res) {
+    let Cat = req.params["categoria"];
+ 
+    let reg = await Producto.find({categoria : Cat }).sort({createdAt:-1}).limit(8);
+    res.status(200).send({ data: reg });
+ };
+
 
 
 
@@ -355,5 +363,6 @@ module.exports={
     Agregar_galeria_admin,
     Eliminar_img_galeria_admin,
     listar_productos_tienda,
-    info_producto_tienda
+    info_producto_tienda,
+    listar_productos_tienda_recomendados
 }

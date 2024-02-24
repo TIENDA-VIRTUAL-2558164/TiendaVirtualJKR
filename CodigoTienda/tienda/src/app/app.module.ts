@@ -16,6 +16,9 @@ import { FormsModule } from '@angular/forms';
 import { routing } from './app.routing';
 import { HttpClientModule } from '@angular/common/http';
 import { ShowProductoComponent } from './Components/productos/show-producto/show-producto.component';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { CarritoComponent } from './Components/carrito/carrito.component';
+
 
 @NgModule({
   declarations: [
@@ -27,7 +30,8 @@ import { ShowProductoComponent } from './Components/productos/show-producto/show
     LoginComponent,
     InicioComponent,
     FooterComponent,
-    ShowProductoComponent
+    ShowProductoComponent,
+    CarritoComponent
   ],
   imports: [
     BrowserModule,
@@ -35,9 +39,11 @@ import { ShowProductoComponent } from './Components/productos/show-producto/show
     FormsModule,
     routing,
     HttpClientModule,
-    NgbPaginationModule
+    NgbPaginationModule,
   ],
-  providers: [],
+  providers: [
+    provideAnimationsAsync()
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -4,7 +4,7 @@ import { ClienteService } from '../../services/cliente.service';
 import { Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 
-
+declare var $: any;
 
 @Component({
   selector: 'app-nav',
@@ -18,9 +18,7 @@ export class NavComponent {
   public id : any;
   public user_lc : any = undefined;
   public configuracion: any = {};
-
-
-
+  public openCar = false;
 
   constructor (
     private _ClienteService : ClienteService,
@@ -83,6 +81,16 @@ export class NavComponent {
     localStorage.clear();
     this._router.navigate(['/']);
 
+  }
+
+  OpenModalCar(){
+    if (!this.openCar) {
+      this.openCar = true;
+      $('#cart').addClass('show');
+    }else{
+      this.openCar = false;
+      $('#cart').removeClass('show');
+    }
   }
 
 }

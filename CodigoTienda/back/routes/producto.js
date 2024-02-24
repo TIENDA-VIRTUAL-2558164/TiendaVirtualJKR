@@ -8,6 +8,7 @@ let auth = require('../middlewares/authenticate');
 var multiparty = require('connect-multiparty'); 
 var path = multiparty({uploadDir: './uploads/productos'});
 
+
 //PRODUCTOS
 api.post('/registro_producto_admin',[auth.auth,path], productoControler.registro_producto_admin);
 api.get('/listar_productos/:filtro?',auth.auth,productoControler.listar_productos);
@@ -25,8 +26,42 @@ api.delete('/eliminar_inventario/:id',auth.auth,productoControler.eliminar_inven
 api.post('/registrar_inventario',auth.auth,productoControler.registro_inventario_admin);
 
 //TIENDA
+/**
+ * @swagger
+ *  components:
+ *   schemas:
+ *    producto:
+ *     type: object
+ *     properties:
+ *      titulo:
+ *        type: string
+ *        description: Nombre del producto
+ *      precio:
+ *        type: integer
+ *        description: Precio del producto
+ */
+
+/**
+ * @swagger
+ * /api/listar_productos_tienda:
+ *   get:
+ *     summary: get all producto
+ *     tags: [producto]
+ *     responses:
+ *       200:
+ *         description: all  products
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/producto'  
+ */
+
 
 api.get('/listar_productos_tienda/:filtro?',productoControler.listar_productos_tienda);
+api.get('/info_productos_tienda/:slug',productoControler.info_producto_tienda);
+api.get('/listar_productos_recomendados/:categoria',productoControler.listar_productos_tienda_recomendados);
 
 
 

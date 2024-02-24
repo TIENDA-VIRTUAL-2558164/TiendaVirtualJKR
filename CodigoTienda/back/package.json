@@ -20,7 +20,9 @@
     "jwt-simple": "^0.5.6",
     "moment": "^2.29.4",
     "mongoose": "^5.13.2",
-    "socket.io": "^4.7.2"
+    "socket.io": "^4.7.2",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.0"
   },
   "devDependencies": {
     "nodemon": "^3.0.1"
