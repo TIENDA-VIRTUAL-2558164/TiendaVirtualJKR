@@ -29,6 +29,7 @@
     "file-saver": "^2.0.5",
     "jquery": "^3.7.1",
     "ngx-tinymce": "^16.0.0",
+    "node-modules": "^1.0.1",
     "rxjs": "~7.8.0",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.0",
