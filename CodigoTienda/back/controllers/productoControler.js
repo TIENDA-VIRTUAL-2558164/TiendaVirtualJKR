@@ -326,11 +326,11 @@ const Eliminar_img_galeria_admin = async function (req,res) {
 // METODOS PUBLICOS---------------------------------------------------------------
 
 const listar_productos_tienda = async function (req, res) {
-   let filtro = req.params["filtro"];
-
-   let reg = await Producto.find({ titulo: new RegExp(filtro, "i") }).sort({createdAt:-1});
-   res.status(200).send({ data: reg });
-};
+    let filtro = req.params["filtro"];
+ 
+    let reg = await Producto.find({ titulo: new RegExp(filtro, "i") }).sort({createdAt:-1});
+    res.status(200).send({ data: reg });
+ };
 
 const info_producto_tienda = async function (req, res) {
     let slug = req.params["slug"];
@@ -343,11 +343,9 @@ const info_producto_tienda = async function (req, res) {
     let Cat = req.params["categoria"];
  
     let reg = await Producto.find({categoria : Cat }).sort({createdAt:-1}).limit(8);
-    res.status(200).send({ data: reg });
+
+    return reg;
  };
-
-
-
 
 module.exports={
     registro_producto_admin,

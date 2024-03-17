@@ -6,6 +6,46 @@ var ClienteControler = require('../controllers/clienteControler');
 var api = espress.Router();
 var auth = require('../middlewares/authenticate');
 
+// Schema of Clientes
+/**
+ * @swagger
+ *  components:
+ *   schemas:
+ *    Cliente:
+ *     type: object
+ *     properties:
+ *      perfil:
+ *        type: String
+ *        description: Imagen del cliente
+ *      genero:
+ *        type: String
+ *        description: Genero 
+ *      nombres:
+ *        type: String
+ *        description: Nombres   
+ *      apellidos:
+ *        type: String
+ *        description: Apellidos    
+ *      email:
+ *        type: String
+ *        description: Direccion de correo electronico      
+ *      telefono:
+ *        type: String
+ *        description: Numero telefonico o celular   
+ *      f_nacimiento:
+ *        type: String
+ *        description: Fecha de nacimiento     
+ *      dni:
+ *        type: String
+ *        description: Numero de documento     
+ *      password:
+ *        type: String
+ *        description: Contraseña     
+ *      pais:
+ *        type: String
+ *        description: Pais de residencia    
+*/
+
 api.post('/registro_cliente',ClienteControler.registro_cliente);
 api.post('/login_cliente', ClienteControler.login_cliente);
 

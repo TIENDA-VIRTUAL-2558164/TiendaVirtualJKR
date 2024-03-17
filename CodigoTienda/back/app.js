@@ -41,7 +41,7 @@ mongoose.connect(process.env.DB,{useUnifiedTopology: true, useNewUrlParser: true
     }
 });
 
-
+//Documentacion Swagger
 const swaggerOptions = {
     definition:{
         openapi:"3.0.0",

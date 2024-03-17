@@ -5,6 +5,7 @@ import { GLOBAL } from '../../../services/global';
 
 declare var $ : any;
 declare var noUiSlider : any;
+declare var iziToast : any;
 
 
 @Component({
@@ -25,6 +26,13 @@ export class IndexProductoComponent {
   public page = 1;
   public pagesize = 12;
 
+  public CarritoData : any = {
+    variedad: '',
+    cantidad: 1
+  };
+  public token : string | null;
+  public LoadBtnCart = false;
+
   public SortBy = 'Por Defecto';
 
   constructor(
@@ -32,6 +40,7 @@ export class IndexProductoComponent {
     private _route : ActivatedRoute
    ){
 
+    this.token = localStorage.getItem('token');
     this.url = GLOBAL.url;
 
     this._ClienteService.obtener_config_publico().subscribe({
@@ -48,7 +57,7 @@ export class IndexProductoComponent {
         this.routeCategoria = params['categoria'];
         if (this.routeCategoria) {
           this._ClienteService.listar_productos_tienda('').subscribe({
-            next:(response)=>{
+            next:(response)=>{              
               this.productos = response.data;
               this.productos = this.productos.filter( (item: {categoria: string} ) =>  item.categoria.toLowerCase() == this.routeCategoria  );
               setTimeout(() => {
@@ -57,8 +66,10 @@ export class IndexProductoComponent {
             }
           });
         } else {
+          
           this._ClienteService.listar_productos_tienda('').subscribe({
             next:(response)=>{
+              //console.log(response);
               this.productos = response.data;
               setTimeout(() => {
                 this.loadData = false;
@@ -237,6 +248,46 @@ export class IndexProductoComponent {
        return 0;
       })
     }
+  }
+
+  AgregarProductCarrito(producto:any){
+
+    
+    let data = {
+      producto: producto._id,
+      cliente: localStorage.getItem('_id'),
+      cantidad: 1,
+      variedad: producto.variedades[0].titulo
+    }
+    this.LoadBtnCart = true;
+    this._ClienteService.AgregarCarrito(data,this.token).subscribe({
+      next: (response)=>{
+        if (response.data == undefined) {
+          iziToast.show({
+            title: 'ERROR',
+            titleColor: '#FF0000',
+            color:'#FFF',
+            class: 'text-danger',
+            position: 'topRight',
+            message: `El producto ya esta agregado en el carrito`
+          });
+          this.LoadBtnCart = false;
+        } else {
+        iziToast.show({
+          title: 'SUCCESS',
+          titleColor: '#1DC74C',
+          class: 'text-success',
+          position: 'topRight',
+          message: 'El producto se ha agregado al carrito',
+        });
+        this.LoadBtnCart = false;
+        }
+      },
+      error: (err)=>{
+        console.log(err);
+        
+      }
+    })
   }
 
 }

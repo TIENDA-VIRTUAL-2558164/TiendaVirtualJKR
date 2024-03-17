@@ -41,6 +41,7 @@ const login_admin = async function(req,res){
     var data = req.body;
     var Admin_arr = [];
 
+
     Admin_arr = await admin.find({email: data.email});
 
     if(Admin_arr.length == 0){

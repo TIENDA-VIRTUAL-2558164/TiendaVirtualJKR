@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { ClienteService } from '../../services/cliente.service';
 import { Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
+import { GLOBAL } from '../../services/global';
 
 declare var $: any;
 
@@ -19,6 +20,9 @@ export class NavComponent {
   public user_lc : any = undefined;
   public configuracion: any = {};
   public openCar = false;
+  public Carrito : Array<any> = [];
+  public url; 
+  public SubTotal: number = 0 ;
 
   constructor (
     private _ClienteService : ClienteService,
@@ -26,6 +30,8 @@ export class NavComponent {
     @Inject(DOCUMENT) private document: Document
 
   ) {
+
+    this.url = GLOBAL.url;
 
     const localStorage = this.document.defaultView?.localStorage
 
@@ -45,7 +51,19 @@ export class NavComponent {
           if (localStorage.getItem('user_data')) {
             const local : any = localStorage.getItem('user_data');
 
-            this.user_lc = JSON.parse(local) ;
+            this.user_lc = JSON.parse(local);
+
+            this._ClienteService.ObtenerCarrito(this.user_lc._id,this.token).subscribe({
+              next: (response)=>{
+                //console.log(response);
+                this.Carrito = response.data;
+               this.SubtotalCarrito()
+              },
+              error: (err)=>{
+                console.log(err);
+                
+              }
+            })
             
           } else {
             this.user_lc = undefined;
@@ -91,6 +109,12 @@ export class NavComponent {
       this.openCar = false;
       $('#cart').removeClass('show');
     }
+  }
+
+  SubtotalCarrito(){
+    this.Carrito.forEach(element => {
+       this.SubTotal = this.SubTotal + parseInt(element.producto.precio); 
+    });
   }
 
 }

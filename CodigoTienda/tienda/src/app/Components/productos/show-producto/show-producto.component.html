@@ -74,31 +74,35 @@
             <form class="row">
               <div class="col-sm-8 order-sm-1 order-2">
                 <div class="form-group">
-                  <label for="size">Size</label>
-                  <select class="form-control custom-select" id="size">
+                  <label for="size">Tamaño</label>
+                  <select class="form-control custom-select" id="size" name="variedad" [(ngModel)]="CarritoData.variedad">
                     <option value="" selected disabled >Seleccionar</option>
                     <option *ngFor="let item of producto.variedades" > {{item.titulo}}</option>
-
                   </select>
                 </div>
               </div>
               <div class="col-sm-4 order-sm-2 order-1 text-sm-right">
 
               </div>
+
               <div class="col-lg-2 col-4 order-lg-3 order-3">
                 <div class="form-group">
-                  <select class="form-control custom-select" id="select-input">
-                    <option>1</option>
-                    <option>2</option>
-                    <option>5</option>
-                    <option>10</option>
+                  <select class="form-control custom-select" id="select-input" name="cantidad" [(ngModel)]="CarritoData.cantidad">
+                    <option value="1" >1</option>
+                    <option value="2" >2</option>
+                    <option value="5" >5</option>
+                    <option value="10" >10</option>
                   </select>
                 </div>
               </div>
               <div class="col-lg-6 order-lg-4 order-4">
-                <button class="btn btn-block btn-primary">
+                <button *ngIf="!LoadBtnCart" class="btn btn-block btn-primary" (click)="AgregarProductCarrito()" >
                   <i class="cxi-cart mr-2"></i>
                   Agregar al carrito
+                </button>
+                <button *ngIf="LoadBtnCart" type="button" class="btn btn-primary" disabled >
+                  <span class="spinner-grow spinner-grow-sm me-2" role="status" aria-hidden="true"></span>
+                  Cargando...
                 </button>
               </div>
               <div class="col-lg-4 col-8 order-lg-5 order-2">

@@ -8,6 +8,77 @@ let auth = require('../middlewares/authenticate');
 var multiparty = require('connect-multiparty'); 
 var path = multiparty({uploadDir: './uploads/productos'});
 
+// Schema of Products
+/**
+ * @swagger
+ *  components:
+ *   schemas:
+ *    producto:
+ *     type: object
+ *     properties:
+ *      galeria:
+ *        type: Array
+ *        description: Glaeria del producto
+ *      nventas:
+ *        type: Integer
+ *        description: Cantidad de ventas del producto
+ *      variedades:
+ *        type: Array
+ *        description: Variedad del producto     
+ *      npuntos:
+ *        type: Integer
+ *        description: puntos para compra del producto      
+ *      estado:
+ *        type: String
+ *        description: estado creacion producto      
+ *      titulo:
+ *        type: String
+ *        description: nombre del producto     
+ *      stock:
+ *        type: Integer
+ *        description: Cantidad disponible del producto     
+ *      precio:
+ *        type: Integer
+ *        description: Valor del producto     
+ *      descripcion:
+ *        type: String
+ *        description: Descripcion corta del producto     
+ *      contenido:
+ *        type: String
+ *        description: Descripcion especifica del producto    
+ *      categoria:
+ *        type: String
+ *        description: Categoria corta del producto    
+ *      portada:
+ *        type: String
+ *        description: Imagen principal corta del producto    
+ *      slug:
+ *        type: String
+ *        description: Slug corta del producto    
+*/
+
+// Schema of Inventarios
+/**
+ * @swagger
+ *  components:
+ *   schemas:
+ *    Inventario:
+ *     type: object
+ *     properties:
+ *      admin:
+ *        type: Id
+ *        description: Id del admin que ingresa el producto
+ *      cantidad:
+ *        type: Integer
+ *        description: Cantidad del producto ingresado
+ *      proveedor:
+ *        type: String
+ *        description: Proveedor del producto     
+ *      producto:
+ *        type: Id
+ *        description: Id del producto ingresado      
+*/
+
 
 //PRODUCTOS
 api.post('/registro_producto_admin',[auth.auth,path], productoControler.registro_producto_admin);
@@ -26,20 +97,7 @@ api.delete('/eliminar_inventario/:id',auth.auth,productoControler.eliminar_inven
 api.post('/registrar_inventario',auth.auth,productoControler.registro_inventario_admin);
 
 //TIENDA
-/**
- * @swagger
- *  components:
- *   schemas:
- *    producto:
- *     type: object
- *     properties:
- *      titulo:
- *        type: string
- *        description: Nombre del producto
- *      precio:
- *        type: integer
- *        description: Precio del producto
- */
+
 
 /**
  * @swagger

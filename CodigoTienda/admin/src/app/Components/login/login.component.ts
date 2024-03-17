@@ -43,6 +43,8 @@ export class LoginComponent implements OnInit {
         password: this.user.password,
       };
 
+      console.log(data);
+      
       this._adminService.login_admin(data).subscribe({
        next: (response) => {
           if (response.data == undefined) {
