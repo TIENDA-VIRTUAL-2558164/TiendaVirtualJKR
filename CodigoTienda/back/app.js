@@ -27,6 +27,16 @@ var io = require('socket.io')(server,{
     cors: {origin : '*'}
 });
 
+io.on('connection',function(socket){
+    socket.on('deleteCarrito',function(data){
+        io.emit('ActCarritoDel',data)
+    });
+
+    socket.on('AddCarrito',function(data){
+        io.emit('ActCarritoAdd',data)
+    })
+})
+
 mongoose.set('useFindAndModify', false);
 mongoose.connect(process.env.DB,{useUnifiedTopology: true, useNewUrlParser: true},(err,res)=>{
     if(err){  

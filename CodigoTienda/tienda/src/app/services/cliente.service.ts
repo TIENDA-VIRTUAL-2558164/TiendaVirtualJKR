@@ -88,11 +88,17 @@ export class ClienteService {
     let headers = new HttpHeaders({'Content-Type':'application/json', 'Authorization': token});
     return this._http.post(this.url+`agregarCarrito`,data,{headers:headers});
    }
-
+   
    ObtenerCarrito(id:any, token:any): Observable<any>{
     let headers = new HttpHeaders({'Content-Type':'application/json', 'Authorization': token});
     return this._http.get(this.url+`obtenerCarrito/${id}`,{headers:headers});
    }
+
+   EliminarCarrito(id:any, token:any): Observable<any>{
+    let headers = new HttpHeaders({'Content-Type':'application/json', 'Authorization': token});
+    return this._http.delete(this.url+`eliminarCarrito/${id}`,{headers:headers});
+   }
+
 
 }
 

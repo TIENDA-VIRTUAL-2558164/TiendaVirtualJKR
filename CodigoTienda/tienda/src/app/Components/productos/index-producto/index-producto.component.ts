@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, Route } from '@angular/router';
 import { ClienteService } from '../../../services/cliente.service';
 import { GLOBAL } from '../../../services/global';
+import { io } from "socket.io-client";
 
 declare var $ : any;
 declare var noUiSlider : any;
@@ -35,6 +36,10 @@ export class IndexProductoComponent {
 
   public SortBy = 'Por Defecto';
 
+  public socket = io(GLOBAL.url2);
+
+  public idUser: any = undefined;
+
   constructor(
     private _ClienteService: ClienteService,
     private _route : ActivatedRoute
@@ -42,6 +47,10 @@ export class IndexProductoComponent {
 
     this.token = localStorage.getItem('token');
     this.url = GLOBAL.url;
+    this.idUser = localStorage.getItem('_id')
+
+    console.log(this.idUser);
+    
 
     this._ClienteService.obtener_config_publico().subscribe({
       next: (response)=>{
@@ -280,6 +289,7 @@ export class IndexProductoComponent {
           position: 'topRight',
           message: 'El producto se ha agregado al carrito',
         });
+        this.socket.emit('AddCarrito', {data:true})
         this.LoadBtnCart = false;
         }
       },

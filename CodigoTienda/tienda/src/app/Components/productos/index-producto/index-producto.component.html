@@ -255,14 +255,22 @@
                         </div>
    
                       </div>
-                      <button *ngIf="!LoadBtnCart" type="button" class="btn btn-primary btn-block" (click)="AgregarProductCarrito(item)">
-                        <i class="cxi-cart align-middle mt-n1 mr-2"></i>
-                        Agregar al carrito
-                      </button>
-                      <button *ngIf="LoadBtnCart" type="button" class="btn btn-primary" disabled >
-                        <span class="spinner-grow spinner-grow-sm me-2" role="status" aria-hidden="true"></span>
-                        Cargando...
-                      </button>
+                      <ng-container *ngIf="idUser != ''" >
+                        <button *ngIf="!LoadBtnCart" type="button" class="btn btn-primary btn-block" (click)="AgregarProductCarrito(item)">
+                          <i class="cxi-cart align-middle mt-n1 mr-2"></i>
+                          Agregar al carrito
+                        </button>
+                        <button *ngIf="LoadBtnCart" type="button" class="btn btn-primary" disabled >
+                          <span class="spinner-grow spinner-grow-sm me-2" role="status" aria-hidden="true"></span>
+                          Cargando...
+                        </button>
+                      </ng-container>
+                      <ng-container *ngIf="idUser == ''" >
+                        <button type="button" class="btn btn-primary btn-block" [routerLink]="['/login']" >
+                          <i class="cxi-cart align-middle mt-n1 mr-2"></i>
+                          Agregar al carrito
+                        </button>
+                      </ng-container>
                     </div>
                   </div>
                 </div>

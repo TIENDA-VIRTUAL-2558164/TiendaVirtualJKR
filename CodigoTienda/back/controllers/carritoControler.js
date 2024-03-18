@@ -35,8 +35,21 @@ const ObtenerCarritoCliente = async function(req,res){
     }
 }
 
+const eliminarCarrito = async function (req,res){
+    if (req.user) {
+        let id = req.params['id'];
+
+        let reg = await carrito.findByIdAndRemove({_id:id});
+        res.status(200).send({data:reg});
+
+
+    }else{
+        res.status(500).send({message: 'NoAccess'})
+    }
+}
 
 module.exports = {
     AgregarCarritoCliente,
-    ObtenerCarritoCliente	
+    ObtenerCarritoCliente,
+    eliminarCarrito	
 } 

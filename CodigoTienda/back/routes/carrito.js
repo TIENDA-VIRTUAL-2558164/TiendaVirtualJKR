@@ -8,5 +8,6 @@ var api = espress.Router();
 
 api.post('/agregarCarrito', auth.auth, carritoControler.AgregarCarritoCliente );
 api.get('/obtenerCarrito/:id', auth.auth, carritoControler.ObtenerCarritoCliente );
+api.delete('/eliminarCarrito/:id', auth.auth, carritoControler.eliminarCarrito );
 
 module.exports = api;
