@@ -3,6 +3,9 @@ import { ClienteService } from '../../services/cliente.service';
 import { GLOBAL } from '../../services/global';
 import { io } from "socket.io-client";
 
+declare var iziToast : any;
+
+
 @Component({
   selector: 'app-carrito',
   templateUrl: './carrito.component.html',
@@ -66,7 +69,15 @@ export class CarritoComponent {
   EliminarCarrito(id:string){
     this._ClienteService.EliminarCarrito(id,this.token).subscribe({
       next: (response)=>{
-        this.socket.emit('deleteCarrito',{ data:response.data })
+        this.socket.emit('deleteCarrito',{ data:response.data });
+        iziToast.show({
+          title: 'SUCCESS',
+          titleColor: '#1DC74C',
+          color:'#FFF',
+          class: 'text-danger',
+          position: 'topRight',
+          message: `El producto se ha eliminado del carrito`
+        });
       },
       error: (err)=>[
 

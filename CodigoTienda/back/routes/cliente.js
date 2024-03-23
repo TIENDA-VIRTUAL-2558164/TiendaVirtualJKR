@@ -62,4 +62,9 @@ api.delete('/eliminar_cliente/:id',auth.auth,ClienteControler.eliminar_cliente_a
 api.get('/obtener_usuario_cliente/:id' ,auth.auth,ClienteControler.obtener_cliente);
 api.put('/editar_perfil_cliente/:id' ,auth.auth,ClienteControler.editar_perfil_cliente);
 
+//Direcciones
+
+api.post('/registrarDireccion', auth.auth, ClienteControler.registroDireccion);
+
+
 module.exports = api;

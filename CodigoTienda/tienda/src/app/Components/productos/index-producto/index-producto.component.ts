@@ -47,11 +47,7 @@ export class IndexProductoComponent {
 
     this.token = localStorage.getItem('token');
     this.url = GLOBAL.url;
-    this.idUser = localStorage.getItem('_id')
-
-    console.log(this.idUser);
     
-
     this._ClienteService.obtener_config_publico().subscribe({
       next: (response)=>{
        // console.log(response);
@@ -93,6 +89,8 @@ export class IndexProductoComponent {
 
 
   ngOnInit(): void {
+    this.idUser = localStorage.getItem('_id')
+
     var slider: any = document.getElementById('slider');
     noUiSlider.create(slider, {
       start: [0, 500000],

@@ -26,7 +26,7 @@ export class PerfilComponent {
 
       this._ClienteService.obtener_usuario_cliente(this.id,this.token).subscribe({
         next: (reponse)=>{
-          console.log(reponse.data);
+         // console.log(reponse.data);
           
           this.cliente = reponse.data;
           

@@ -255,7 +255,7 @@
                         </div>
    
                       </div>
-                      <ng-container *ngIf="idUser != ''" >
+                      <ng-container *ngIf="idUser != null" >
                         <button *ngIf="!LoadBtnCart" type="button" class="btn btn-primary btn-block" (click)="AgregarProductCarrito(item)">
                           <i class="cxi-cart align-middle mt-n1 mr-2"></i>
                           Agregar al carrito
@@ -265,7 +265,7 @@
                           Cargando...
                         </button>
                       </ng-container>
-                      <ng-container *ngIf="idUser == ''" >
+                      <ng-container *ngIf="idUser == null" >
                         <button type="button" class="btn btn-primary btn-block" [routerLink]="['/login']" >
                           <i class="cxi-cart align-middle mt-n1 mr-2"></i>
                           Agregar al carrito

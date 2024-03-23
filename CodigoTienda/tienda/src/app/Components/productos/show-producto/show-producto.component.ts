@@ -3,6 +3,7 @@ import { ProductoService } from '../../../services/producto.service';
 import { ActivatedRoute } from '@angular/router';
 import { GLOBAL } from '../../../services/global';
 import { ClienteService } from '../../../services/cliente.service';
+import { io } from 'socket.io-client';
 
 declare var tns:any;
 declare var lightGallery: any;
@@ -27,6 +28,7 @@ export class ShowProductoComponent {
     variedad: '',
     cantidad: 1
   };
+  public socket = io(GLOBAL.url2);
 
 
   constructor(
@@ -159,6 +161,7 @@ export class ShowProductoComponent {
               position: 'topRight',
               message: 'El producto se ha agregado al carrito',
             });
+            this.socket.emit('AddCarrito',{data:true});
             this.LoadBtnCart = false;
             }
           },

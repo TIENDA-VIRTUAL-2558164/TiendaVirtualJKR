@@ -1,0 +1,118 @@
+<app-nav></app-nav>
+
+<main class="cs-page-wrapper">
+    <nav class="bg-secondary mb-3" aria-label="breadcrumb">
+        <div class="container">
+            <ol class="breadcrumb breadcrumb-alt mb-0">
+                <li class="breadcrumb-item">
+                    <a [routerLink]="['/']"><i class="cxi-home"></i></a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">Direcciones</li>
+            </ol>
+        </div>
+    </nav>
+
+    <section class="container pt-3 pt-lg-4 pb-5 pb-lg-6">
+        <div class="row pb-2 pb-lg-0">
+
+            <!-- Account menu (sticky sidebar) -->
+            <aside class="col-xl-3 col-lg-4 pb-3 mb-4 mb-lg-0">
+                <app-sidebar></app-sidebar>
+            </aside>
+
+            <!-- Content -->
+            <div class="col-lg-8 ml-auto">
+                <div class="d-flex align-items-center justify-content-between mb-4 pb-1 pb-sm-3">
+                    <h1 class="h2 mb-0">Mis Direcciones</h1>
+                </div>
+                <form (ngSubmit)="AddDirections(formDirections)" #formDirections="ngForm">
+                    <div class="row pb-3">
+                        <div class="col-sm-6 form-group">
+                            <label for="ac-fn">Nombres</label>
+                            <input type="text" required class="form-control form-control-lg" name="destinatario"
+                                [(ngModel)]="direction.destinatario" placeholder="Nombres Completos del destinatario">
+                        </div>
+                        <div class="col-sm-6 form-group">
+                            <label for="ac-fn">N° de Documento</label>
+                            <input type="text" required class="form-control form-control-lg" name="DNI"
+                                [(ngModel)]="direction.dni" placeholder="N° de Documento">
+                        </div>
+                        <div class="col-sm-6 form-group">
+                            <label for="ac-fn">Direccion</label>
+                            <input type="text" required class="form-control form-control-lg" name="direccion"
+                                [(ngModel)]="direction.direccion" placeholder="Calle 1 # 1-1">
+                        </div>
+                        <div class="col-sm-6 form-group">
+                            <label for="ac-fn">Telefono</label>
+                            <input type="text" required class="form-control form-control-lg" name="telefono"
+                                [(ngModel)]="direction.telefono" placeholder="311-111-1111">
+                        </div>
+                        <div class="col-sm-6 form-group">
+                            <label for="ac-fn">País</label>
+                            <select id="pais" class="custom-select custom-select-lg" name="" name="pais"
+                                [(ngModel)]="direction.pais" (change)="SelectPais()">
+                                <option value="" selected disabled>Seleccionar</option>
+                                <!-- <option value="Argentina">Argentina</option>
+                                <option value="Bolivia">Bolivia</option>
+                                <option value="Brasil">Brasil</option>
+                                <option value="Chile">Chile</option> -->
+                                <option value="Colombia">Colombia</option>
+                                <!-- <option value="Costa Rica">Costa Rica</option>
+                                <option value="Cuba">Cuba</option>
+                                <option value="Ecuador">Ecuador</option>
+                                <option value="El Salvador">El Salvador</option>
+                                <option value="España">España</option>
+                                <option value="Estados Unidos">Estados Unidos</option>
+                                <option value="Guatemala">Guatemala</option>
+                                <option value="Haití">Haití</option>
+                                <option value="Honduras">Honduras</option>
+                                <option value="México">México</option>
+                                <option value="Nicaragua">Nicaragua</option>
+                                <option value="Panamá">Panamá</option>
+                                <option value="Paraguay">Paraguay</option>
+                                <option value="Perú">Perú</option>
+                                <option value="República Dominican">República Dominican</option>
+                                <option value="Uruguay">Uruguay</option>
+                                <option value="Venezuela">Venezuela</option> -->
+                            </select>
+                        </div>
+                        <div class="col-sm-6 form-group">
+                            <label for="ac-fn">Departamento</label>
+                            <select id="departamento" class="custom-select custom-select-lg" name="departamento"
+                                [(ngModel)]="direction.departamento" disabled (change)="selectDepartamento()">
+                                <option value="" selected disabled>Seleccionar</option>
+                                <option *ngFor="let departamento of departamentos" [value]="departamento.codigo">{{
+                                    departamento.nombre }}</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-6 form-group">
+                            <label for="ac-fn">municipio</label>
+                            <select id="municipio" class="custom-select custom-select-lg" name="" name="municipio"
+                                [(ngModel)]="direction.municipio" disabled (change)="selectMunicipio()">
+                                <option value="" selected disabled>Seleccionar</option>
+                                <option  selected *ngFor="let item of municipios" [value]="item.codigoMun" >{{item.nombreMun}}</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-6 form-group">
+                            <label for="ac-fn">Localidad/barrio</label>
+                            <input id="localidadBarrio" required class="form-control form-control-lg" name="localidadBarrio" disabled
+                                [(ngModel)]="direction.localidadBarrio" placeholder="Localidad y/o barrio">
+                        </div>
+                        <div class="col-sm-12 form-group">
+                            <div class="custom-control custom-checkbox">
+                                <input class="custom-control-input" type="checkbox" id="ex-check-1" name="principal"
+                                    [(ngModel)]="direction.principal">
+                                <label class="custom-control-label" for="ex-check-1">direccion principal</label>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-sm">Guardar</button>
+                </form>
+
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<app-footer></app-footer>

@@ -1,6 +1,7 @@
 'use strict'
 
 const Cliente = require('../models/cliente');
+const Direccion = require('../models/direccion')
 var bcrypt = require('bcrypt-nodejs');
 var jwt = require('../helpers/jwt');
 
@@ -251,6 +252,25 @@ const editar_perfil_cliente = async function (req,res){
 }
 
 
+/******************************************************** 
+ * Direcciones para el envio de productos
+*/
+
+
+
+const registroDireccion = async function (req, res) {
+    
+    if (req.user) {
+
+        const data = req.body;
+        let reg = await Direccion.create(data);
+        res.status(200).send({data:reg}); 
+        
+    } else {
+        res.status(500).send({message:'NoAcces'});
+    }
+}
+
 
 module.exports = {
     registro_cliente,
@@ -261,5 +281,6 @@ module.exports = {
     editar_cliente_admin,
     eliminar_cliente_admin,
     obtener_cliente,
-    editar_perfil_cliente
+    editar_perfil_cliente,
+    registroDireccion
 }

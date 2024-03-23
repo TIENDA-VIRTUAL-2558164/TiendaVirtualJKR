@@ -8,6 +8,7 @@ import { authGuard } from "./guards/auth.guard";
 import { IndexProductoComponent } from "./Components/productos/index-producto/index-producto.component";
 import { ShowProductoComponent } from "./Components/productos/show-producto/show-producto.component";
 import { CarritoComponent } from "./Components/carrito/carrito.component";
+import { DireccionesComponent } from "./Components/usuario/direcciones/direcciones.component";
 
 const appRoute : Routes = [
     {path: '', component:InicioComponent },
@@ -20,6 +21,8 @@ const appRoute : Routes = [
 
     {path: 'productos/categoria/:categoria', component:IndexProductoComponent },
     {path: 'productos/:slug', component:ShowProductoComponent },
+    {path: 'Cuenta/direcciones', component:DireccionesComponent, canActivate:[authGuard]},
+
     
 ]
 

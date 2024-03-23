@@ -2,9 +2,10 @@ import { Injectable } from '@angular/core';
 import { Inject } from '@angular/core';
 import { GLOBAL } from './global';
 import { Observable } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { CommonModule, DOCUMENT } from '@angular/common';
+import { DOCUMENT } from '@angular/common';
+
 
 @Injectable({
   providedIn: 'root'
@@ -98,6 +99,20 @@ export class ClienteService {
     let headers = new HttpHeaders({'Content-Type':'application/json', 'Authorization': token});
     return this._http.delete(this.url+`eliminarCarrito/${id}`,{headers:headers});
    }
+
+   RegitrarDireccion(data:any,token:any): Observable<any>{
+    let headers = new HttpHeaders({'Content-Type':'application/json', 'Authorization': token});
+    return this._http.post(this.url+`registrarDireccion`,data,{headers:headers});
+   }
+
+   DatosDivipola(): Observable<any> {
+    const Count = 1121; // Número exacto de datos que deseas obtener
+
+    // Construye los parámetros de la consulta para obtener la cantidad deseada de datos
+    const params = new HttpParams()
+      .set('$limit', String(Count));
+    return this._http.get('https://www.datos.gov.co/resource/gdxc-w37w.json', { params });
+  }
 
 
 }

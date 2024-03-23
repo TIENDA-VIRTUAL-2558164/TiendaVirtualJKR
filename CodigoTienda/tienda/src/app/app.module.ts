@@ -18,6 +18,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ShowProductoComponent } from './Components/productos/show-producto/show-producto.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { CarritoComponent } from './Components/carrito/carrito.component';
+import { DireccionesComponent } from './Components/usuario/direcciones/direcciones.component';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { CarritoComponent } from './Components/carrito/carrito.component';
     InicioComponent,
     FooterComponent,
     ShowProductoComponent,
-    CarritoComponent
+    CarritoComponent,
+    DireccionesComponent
   ],
   imports: [
     BrowserModule,
