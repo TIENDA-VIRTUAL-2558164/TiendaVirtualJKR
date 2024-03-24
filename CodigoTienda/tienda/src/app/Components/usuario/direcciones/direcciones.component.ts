@@ -125,6 +125,7 @@ export class DireccionesComponent implements OnInit {
               }
             };
           });
+          this.direction.municipio = '';
           this.municipios = Array.from(municipioMap.values())
           //console.log(this.municipios);
           //console.log(response);
@@ -133,7 +134,8 @@ export class DireccionesComponent implements OnInit {
         error: (err)=>{
           console.log(err);
         }
-      })
+      });
+
       $('#municipio').prop('disabled', false);
     }
   }
