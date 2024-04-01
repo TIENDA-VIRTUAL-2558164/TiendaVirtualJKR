@@ -61,6 +61,11 @@ var path = multiparty({uploadDir: './uploads/productos'});
 /**
  * @swagger
  *  components:
+ *   securitySchemes:
+ *     bearerAuth:
+ *       type: apiKey
+ *       in: header
+ *       name: Authorization
  *   schemas:
  *    Inventario:
  *     type: object
@@ -69,16 +74,17 @@ var path = multiparty({uploadDir: './uploads/productos'});
  *        type: Id
  *        description: Id del admin que ingresa el producto
  *      cantidad:
- *        type: Integer
+ *        type: integer
  *        description: Cantidad del producto ingresado
  *      proveedor:
- *        type: String
+ *        type: string
  *        description: Proveedor del producto     
  *      producto:
  *        type: Id
  *        description: Id del producto ingresado      
+ *     security:
+ *       - bearerAuth: []
 */
-
 
 //PRODUCTOS
 api.post('/registro_producto_admin',[auth.auth,path], productoControler.registro_producto_admin);
@@ -91,8 +97,28 @@ api.put('/editar_variedad_admin/:id',auth.auth,productoControler.editar_variedad
 api.put('/Agregar_galeria/:id',[auth.auth,path],productoControler.Agregar_galeria_admin);
 api.put('/Eliminar_galeria_admin/:id',auth.auth,productoControler.Eliminar_img_galeria_admin);
 
+
+/**
+ * @swagger
+ * /api/listar_inventario:
+ *   get:
+ *     summary: get all Inventarios
+ *     tags: [Inventario]
+ *     responses:
+ *       200:
+ *         description: Solicitud Satisfactoria
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Inventario'  
+ *     security:
+ *      - bearerAuth: []
+ */
+
 //INVENTATIOS
-api.get('/listar_inventario/:id',auth.auth, productoControler.listar_inventario );
+api.get('/listar_inventario/:id?',auth.auth, productoControler.listar_inventario );
 api.delete('/eliminar_inventario/:id',auth.auth,productoControler.eliminar_inventario);
 api.post('/registrar_inventario',auth.auth,productoControler.registro_inventario_admin);
 
@@ -107,13 +133,13 @@ api.post('/registrar_inventario',auth.auth,productoControler.registro_inventario
  *     tags: [producto]
  *     responses:
  *       200:
- *         description: all  products
+ *         description: Solicitud Satisfactoria
  *         content:
  *           application/json:
  *             schema:
  *               type: array
  *               items:
- *                 $ref: '#/components/schemas/producto'  
+ *                 $ref: '#/components/schemas/producto' 
  */
 
 

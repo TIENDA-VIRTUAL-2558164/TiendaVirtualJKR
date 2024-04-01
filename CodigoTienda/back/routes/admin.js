@@ -2,6 +2,7 @@
 
 var espress = require('express');
 var adminControler = require('../controllers/AdminControler');
+const  auth  = require('../middlewares/authenticate');
 
 var api = espress.Router();
 
@@ -36,7 +37,27 @@ var api = espress.Router();
  *        description: Numero de documento            
 */
 
-api.post('/registro_admin',adminControler.registro_admin);
+/**
+ * @swagger
+ * /api/listarAdmin:
+ *   get:
+ *     summary: get all Admins
+ *     tags: [Admins]
+ *     responses:
+ *       200:
+ *         description: Solicitud Satisfactoria
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Admin'  
+ *     security:
+ *      - bearerAuth: []
+ */
+
+api.post('/registro_admin'  ,adminControler.registro_admin);
 api.post('/login_admin', adminControler.login_admin);
+api.get('/listarAdmin',auth.auth ,adminControler.ListarAdmins);
 
 module.exports = api;

@@ -125,8 +125,13 @@ const obtener_cliente_admin = async function (req,res) {
             let id = req.params['id'];
 
             try {
-                let reg = await Cliente.findById({_id:id});
-                res.status(200).send({data:reg});
+                if (id) {
+                    let reg = await Cliente.findById({_id:id});
+                    res.status(200).send({data:reg});
+                } else {
+                    let reg = await Cliente.find();
+                    res.status(200).send({data:reg});
+                }
                 
             } catch (error) {
                 res.status(200).send({data:undefined});

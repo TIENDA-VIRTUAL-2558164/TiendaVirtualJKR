@@ -174,13 +174,18 @@ const eliminar_Producto_admin = async function (req,res){
 }
 
 const listar_inventario = async function (req,res ){
+
     if (req.user) {
         if (req.user.role == 'admin') {
-
             let id = req.params['id'];
-
-            let reg = await Inventario.find({producto: id}).populate('admin').sort({createdAt: - 1});
-            res.status(200).send({data:reg});
+            if (id) {
+                let reg = await Inventario.find({producto: id}).populate('admin').sort({createdAt: - 1});
+                res.status(200).send({data:reg});
+            } else {
+                let reg = await Inventario.find();
+                res.status(200).send({data:reg});
+            }
+           
 
         }else {
             res.status(500).send({message: 'NoAccess'})
