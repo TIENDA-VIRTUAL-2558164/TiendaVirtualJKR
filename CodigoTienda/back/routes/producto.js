@@ -117,6 +117,7 @@ api.post('/registrar_inventario',auth.auth,productoControler.registro_inventario
  */
 
 
+
 api.get('/listar_productos_tienda/:filtro?',productoControler.listar_productos_tienda);
 api.get('/info_productos_tienda/:slug',productoControler.info_producto_tienda);
 api.get('/listar_productos_recomendados/:categoria',productoControler.listar_productos_tienda_recomendados);
