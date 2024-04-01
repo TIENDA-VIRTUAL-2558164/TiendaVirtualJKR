@@ -49,11 +49,52 @@ var auth = require('../middlewares/authenticate');
 api.post('/registro_cliente',ClienteControler.registro_cliente);
 api.post('/login_cliente', ClienteControler.login_cliente);
 
+/**
+ * @swagger
+ * /api/obtener_cliente:
+ *   get:
+ *     summary: get all Clientes
+ *     tags: [Cliente]
+ *     responses:
+ *       200:
+ *         description: Solicitud Satisfactoria
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Cliente'  
+ *     security:
+ *      - bearerAuth: []
+ * /api/registro_cliente_admin:
+ *   post:
+ *     summary: Agregar un nuevo cliente
+ *     tags: [Cliente]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Cliente'
+ *     responses:
+ *       200:
+ *         description: Cliente creado correctamente
+ *       400:
+ *         description: Error en la solicitud
+ *       401:
+ *         description: No autorizado
+ *       403:
+ *         description: Prohibido
+ *       500:
+ *         description: Error interno del servidor
+ *     security:
+ *      - bearerAuth: []
+ */
 
 //desde el apartado de admins.
 api.get('/listar_clientes_filtro_admin/:tipo/:filtro?',auth.auth,ClienteControler.listar_clientes_filtro_admin);
 api.post('/registro_cliente_admin',auth.auth,ClienteControler.registro_cliente_admin);
-api.get('/obtener_cliente/:id' ,auth.auth,ClienteControler.obtener_cliente_admin);
+api.get('/obtener_cliente/:id?' ,auth.auth,ClienteControler.obtener_cliente_admin);
 api.put('/editar_cliente/:id',auth.auth,ClienteControler.editar_cliente_admin);
 api.delete('/eliminar_cliente/:id',auth.auth,ClienteControler.eliminar_cliente_admin);
 

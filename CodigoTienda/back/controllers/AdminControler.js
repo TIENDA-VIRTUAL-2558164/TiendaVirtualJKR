@@ -64,7 +64,20 @@ const login_admin = async function(req,res){
 
 }
 
+const ListarAdmins = async function (req, res) {
+    
+    if (req.user) {
+        
+            let reg = await Admin.find();
+            res.status(200).send({data:reg})
+
+    } else {
+        res.status(500).send({message: 'NoAccess'})
+    }
+}
+
 module.exports = {
     registro_admin,
     login_admin,
+    ListarAdmins
 }

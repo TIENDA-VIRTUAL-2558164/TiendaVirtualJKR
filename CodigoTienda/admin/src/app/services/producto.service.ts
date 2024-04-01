@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { GLOBAL } from './global';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { formatDate } from '@angular/common';
 
 
 @Injectable({

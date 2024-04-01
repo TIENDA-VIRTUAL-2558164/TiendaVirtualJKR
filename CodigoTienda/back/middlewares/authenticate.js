@@ -24,6 +24,8 @@ exports.auth = function(req,res,next){
             }
 
         } catch (error) {
+            console.log(error);
+            console.log(segment);
             return res.status(403).send({message: 'InvalidToken'});
         }
     }
