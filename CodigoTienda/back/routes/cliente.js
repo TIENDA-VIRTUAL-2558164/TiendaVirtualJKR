@@ -53,7 +53,7 @@ api.post('/login_cliente', ClienteControler.login_cliente);
  * @swagger
  * /api/obtener_cliente:
  *   get:
- *     summary: get all Clientes
+ *     summary: Obtener todos los clientes
  *     tags: [Cliente]
  *     responses:
  *       200:
@@ -89,7 +89,56 @@ api.post('/login_cliente', ClienteControler.login_cliente);
  *         description: Error interno del servidor
  *     security:
  *      - bearerAuth: []
+ * /api/eliminar_cliente/{id}:
+ *   delete:
+ *     summary: Eliminar un cliente existente por su ID
+ *     tags: [Cliente]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: ID del cliente a eliminar
+ *     responses:
+ *       200:
+ *         description: Cliente eliminado correctamente
+ *       404:
+ *         description: Cliente no encontrado
+ *       500:
+ *         description: Error interno del servidor
+ *     security:
+ *      - bearerAuth: []
+ * /api/editar_cliente/{id}:
+ *   put:
+ *     summary: Actualizar un cliente existente por su ID
+ *     tags: [Cliente]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: ID del cliente a actualizar
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Cliente'
+ *     responses:
+ *       200:
+ *         description: Cliente actualizado correctamente
+ *       400:
+ *         description: Error en la solicitud
+ *       404:
+ *         description: Cliente no encontrado
+ *       500:
+ *         description: Error interno del servidor
+ *     security:
+ *      - bearerAuth: []
  */
+
 
 //desde el apartado de admins.
 api.get('/listar_clientes_filtro_admin/:tipo/:filtro?',auth.auth,ClienteControler.listar_clientes_filtro_admin);
