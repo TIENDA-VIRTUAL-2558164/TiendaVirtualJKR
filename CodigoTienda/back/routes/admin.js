@@ -54,6 +54,29 @@ var api = espress.Router();
  *                 $ref: '#/components/schemas/Admin'  
  *     security:
  *      - bearerAuth: []
+ * /api/registro_admin:
+ *   post:
+ *     summary: Registro admin
+ *     tags: [Admins]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Admin'
+ *     responses:
+ *       200:
+ *         description: Administrador creado correctamente
+ *       400:
+ *         description: Error en la solicitud
+ *       401:
+ *         description: No autorizado
+ *       403:
+ *         description: Prohibido
+ *       500:
+ *         description: Error interno del servidor
+ *     security:
+ *      - bearerAuth: []
  */
 
 api.post('/registro_admin'  ,adminControler.registro_admin);

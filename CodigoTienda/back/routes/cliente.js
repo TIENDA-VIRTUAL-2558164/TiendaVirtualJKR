@@ -46,6 +46,7 @@ var auth = require('../middlewares/authenticate');
  *        description: Pais de residencia    
 */
 
+
 api.post('/registro_cliente',ClienteControler.registro_cliente);
 api.post('/login_cliente', ClienteControler.login_cliente);
 
@@ -149,7 +150,8 @@ api.delete('/eliminar_cliente/:id',auth.auth,ClienteControler.eliminar_cliente_a
 
 //desde el apartado de clientes.
 
-api.get('/obtener_usuario_cliente/:id' ,auth.auth,ClienteControler.obtener_cliente);
+
+api.get('/obtener_usuario_cliente/:id?' ,auth.auth,ClienteControler.obtener_cliente);
 api.put('/editar_perfil_cliente/:id' ,auth.auth,ClienteControler.editar_perfil_cliente);
 
 //Direcciones

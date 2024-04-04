@@ -115,9 +115,53 @@ api.put('/Eliminar_galeria_admin/:id',auth.auth,productoControler.Eliminar_img_g
  *                 $ref: '#/components/schemas/Inventario'  
  *     security:
  *      - bearerAuth: []
- */
+ * /api/registrar_inventario:
+ *   post:
+ *     summary: Agrergar inventario al producto
+ *     tags: [Inventario]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Inventario'
+ *     responses:
+ *       200:
+ *         description: Inventario agregado correctamente
+ *       400:
+ *         description: Error en la solicitud
+ *       401:
+ *         description: No autorizado
+ *       403:
+ *         description: Prohibido
+ *       500:
+ *         description: Error interno del servidor
+ *     security:
+ *      - bearerAuth: []
+ * /api/eliminar_inventario/{id}:
+ *   delete:
+ *     summary: Eliminar un inventario por su ID 
+ *     tags: [Inventario]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: ID del inventario a eliminar
+ *     responses:
+ *       200:
+ *         description: Inventario eliminado correctamente
+ *       404:
+ *         description: Inventario no encontrado
+ *       500:
+ *         description: Error interno del servidor
+ *     security:
+ *      - bearerAuth: [] 
+*/
 
 //INVENTATIOS
+
 api.get('/listar_inventario/:id?',auth.auth, productoControler.listar_inventario );
 api.delete('/eliminar_inventario/:id',auth.auth,productoControler.eliminar_inventario);
 api.post('/registrar_inventario',auth.auth,productoControler.registro_inventario_admin);
@@ -140,8 +184,78 @@ api.post('/registrar_inventario',auth.auth,productoControler.registro_inventario
  *               type: array
  *               items:
  *                 $ref: '#/components/schemas/producto' 
+ * /api/registro_producto_admin:
+ *   post:
+ *     summary: Agregar un nuevo producto
+ *     tags: [producto]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/producto'
+ *     responses:
+ *       200:
+ *         description: producto creado correctamente
+ *       400:
+ *         description: Error en la solicitud
+ *       401:
+ *         description: No autorizado
+ *       403:
+ *         description: Prohibido
+ *       500:
+ *         description: Error interno del servidor
+ *     security:
+ *      - bearerAuth: []
+ * /api/editar_producto/{id}:
+ *   put:
+ *     summary: Actualizar un producto existente por su ID
+ *     tags: [producto]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: ID del producto a actualizar
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/producto'
+ *     responses:
+ *       200:
+ *         description: Producto actualizado correctamente
+ *       400:
+ *         description: Error en la solicitud
+ *       404:
+ *         description: producto no encontrado
+ *       500:
+ *         description: Error interno del servidor
+ *     security:
+ *      - bearerAuth: []
+ * /api/eliminar_producto/{id}:
+ *   delete:
+ *     summary: Eliminar un producto existente por su ID
+ *     tags: [producto]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: ID del producto a eliminar
+ *     responses:
+ *       200:
+ *         description: Producto eliminado correctamente
+ *       404:
+ *         description: Producto no encontrado
+ *       500:
+ *         description: Error interno del servidor
+ *     security:
+ *      - bearerAuth: []
  */
-
 
 api.get('/listar_productos_tienda/:filtro?',productoControler.listar_productos_tienda);
 api.get('/info_productos_tienda/:slug',productoControler.info_producto_tienda);
