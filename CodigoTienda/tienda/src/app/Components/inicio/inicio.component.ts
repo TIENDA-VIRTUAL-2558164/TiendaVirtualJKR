@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ProductoService } from '../../services/producto.service';
+import { GLOBAL } from '../../services/global';
 
 declare var tns : any;
 
@@ -9,9 +11,16 @@ declare var tns : any;
 })
 export class InicioComponent implements OnInit {
 
-  constructor(){}
+  public NewProducts :Array<any> = [];
+  public url;
+  constructor(
+    private _proiductoService: ProductoService
+  ){
+    this.url = GLOBAL.url;
+  }
 
   ngOnInit(): void {
+    this.ProductosNuevos();
     setTimeout(()=>{
       tns({
         container: '.cs-carousel-inner',
@@ -141,5 +150,12 @@ export class InicioComponent implements OnInit {
   }
 
 
+  ProductosNuevos(){
+    this._proiductoService.ProductosNuevos().subscribe({
+      next: (response)=>{
+        this.NewProducts = response.data;
+      }
+    })
+  }
 
 }

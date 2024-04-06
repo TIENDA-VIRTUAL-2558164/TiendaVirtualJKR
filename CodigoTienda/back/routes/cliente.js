@@ -157,6 +157,8 @@ api.put('/editar_perfil_cliente/:id' ,auth.auth,ClienteControler.editar_perfil_c
 //Direcciones
 
 api.post('/registrarDireccion', auth.auth, ClienteControler.registroDireccion);
+api.get('/ObtenerDireccion/:id', auth.auth, ClienteControler.ObtenerDireccion);
+api.put('/ActDireccionPrincipal/:id/:idCliente', auth.auth, ClienteControler.ActualizarDireccionPrincipal);
 
 
 module.exports = api;

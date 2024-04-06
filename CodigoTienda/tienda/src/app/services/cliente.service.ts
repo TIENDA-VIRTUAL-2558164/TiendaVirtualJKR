@@ -114,6 +114,21 @@ export class ClienteService {
     return this._http.get('https://www.datos.gov.co/resource/gdxc-w37w.json', { params });
   }
 
+  ObtenerDireccion(id:any,token:any): Observable<any>{
+    let headers = new HttpHeaders({'Content-Type':'application/json', 'Authorization': token});
+    return this._http.get(this.url+`ObtenerDireccion/${id}`,{headers:headers});
+   }
+
+   ActDireccionPrincipal(id:any,idCliente:any,token:any): Observable<any>{
+    let headers = new HttpHeaders({'Content-Type':'application/json', 'Authorization': token});
+    return this._http.put(this.url+`ActDireccionPrincipal/${id}/${idCliente}`,{data:true},{headers:headers});
+   }
+
+   RegitrarVenta(data:any,token:any): Observable<any>{
+    let headers = new HttpHeaders({'Content-Type':'application/json', 'Authorization': token});
+    return this._http.post(this.url+`registroCompra`,data,{headers:headers});
+   }
+
 
 }
 

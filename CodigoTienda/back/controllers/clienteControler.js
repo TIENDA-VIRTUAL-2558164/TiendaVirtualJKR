@@ -266,9 +266,49 @@ const editar_perfil_cliente = async function (req,res){
 const registroDireccion = async function (req, res) {
     
     if (req.user) {
-
+        
         const data = req.body;
+        if (data.DirPrincipal) {
+            let direcciones  = await Direccion.find({cliente: data.cliente})
+            direcciones.forEach(async item =>{
+                await Direccion.findByIdAndUpdate({_id:item._id},{DirPrincipal:false})
+            })
+        }
+
         let reg = await Direccion.create(data);
+        res.status(200).send({data:reg}); 
+        
+    } else {
+        res.status(500).send({message:'NoAcces'});
+    }
+}
+
+const ObtenerDireccion = async function (req, res) {
+    
+    if (req.user) {
+        
+        let id = req.params['id']
+        let reg = await Direccion.find({cliente:id}).populate('cliente').sort({createdAt:-1});
+        res.status(200).send({data:reg}); 
+        
+    } else {
+        res.status(500).send({message:'NoAcces'});
+    }
+}
+
+const ActualizarDireccionPrincipal = async function (req, res) {
+    
+    if (req.user) {
+        
+        const idCliente = req.params['idCliente'];
+        const id = req.params['id'];
+
+        let direcciones  = await Direccion.find({cliente: idCliente })
+        direcciones.forEach(async item =>{
+            await Direccion.findByIdAndUpdate({_id:item._id},{DirPrincipal:false})
+        })
+
+        let reg = await Direccion.findByIdAndUpdate({_id:id},{DirPrincipal:true});
         res.status(200).send({data:reg}); 
         
     } else {
@@ -287,5 +327,7 @@ module.exports = {
     eliminar_cliente_admin,
     obtener_cliente,
     editar_perfil_cliente,
-    registroDireccion
+    registroDireccion,
+    ObtenerDireccion,
+    ActualizarDireccionPrincipal
 }

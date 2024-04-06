@@ -15,7 +15,7 @@
     <section class="container pt-3 pt-lg-4 pb-5 pb-lg-6">
         <div class="row pb-2 pb-lg-0">
 
-            <!-- Account menu (sticky sidebar) -->
+            <!-- menu (sticky sidebar) -->
             <aside class="col-xl-3 col-lg-4 pb-3 mb-4 mb-lg-0">
                 <app-sidebar></app-sidebar>
             </aside>
@@ -23,34 +23,34 @@
             <!-- Content -->
             <div class="col-lg-8 ml-auto">
                 <div class="d-flex align-items-center justify-content-between mb-4 pb-1 pb-sm-3">
-                    <h1 class="h2 mb-0">Mis Direcciones</h1>
+                    <h1 class="h2 mb-0">Nueva Direccion</h1>
                 </div>
                 <form (ngSubmit)="AddDirections(formDirections)" #formDirections="ngForm">
                     <div class="row pb-3">
                         <div class="col-sm-6 form-group">
                             <label for="ac-fn">Nombres</label>
                             <input type="text" required class="form-control form-control-lg" name="destinatario"
-                                [(ngModel)]="direction.destinatario" placeholder="Nombres Completos del destinatario">
+                                [(ngModel)]="direction.destinatario" placeholder="Nombres Completos del destinatario" required>
                         </div>
                         <div class="col-sm-6 form-group">
                             <label for="ac-fn">N° de Documento</label>
                             <input type="text" required class="form-control form-control-lg" name="DNI"
-                                [(ngModel)]="direction.dni" placeholder="N° de Documento">
+                                [(ngModel)]="direction.dni" placeholder="N° de Documento" required>
                         </div>
                         <div class="col-sm-6 form-group">
                             <label for="ac-fn">Direccion</label>
                             <input type="text" required class="form-control form-control-lg" name="direccion"
-                                [(ngModel)]="direction.direccion" placeholder="Calle 1 # 1-1">
+                                [(ngModel)]="direction.direccion" placeholder="Calle 1 # 1-1" required>
                         </div>
                         <div class="col-sm-6 form-group">
                             <label for="ac-fn">Telefono</label>
                             <input type="text" required class="form-control form-control-lg" name="telefono"
-                                [(ngModel)]="direction.telefono" placeholder="311-111-1111">
+                                [(ngModel)]="direction.telefono" placeholder="311-111-1111" required>
                         </div>
                         <div class="col-sm-6 form-group">
                             <label for="ac-fn">País</label>
                             <select id="pais" class="custom-select custom-select-lg" name="" name="pais"
-                                [(ngModel)]="direction.pais" (change)="SelectPais()">
+                                [(ngModel)]="direction.pais" (change)="SelectPais()" required>
                                 <option value="" selected disabled>Seleccionar</option>
                                 <!-- <option value="Argentina">Argentina</option>
                                 <option value="Bolivia">Bolivia</option>
@@ -79,7 +79,7 @@
                         <div class="col-sm-6 form-group">
                             <label for="ac-fn">Departamento</label>
                             <select id="departamento" class="custom-select custom-select-lg" name="departamento"
-                                [(ngModel)]="direction.departamento" disabled (change)="selectDepartamento()">
+                                [(ngModel)]="direction.departamento" disabled (change)="selectDepto()" required>
                                 <option value="" selected disabled>Seleccionar</option>
                                 <option *ngFor="let departamento of departamentos" [value]="departamento.codigo">{{
                                     departamento.nombre }}</option>
@@ -108,10 +108,59 @@
                     </div>
                     <button type="submit" class="btn btn-primary btn-sm">Guardar</button>
                 </form>
+                <div class="d-flex align-items-center justify-content-between mb-1 pb-1 pb-sm-3 mt-5">
+                    <h1 class="h2 mb-0">Mis Direcciones</h1>
+                </div>
+                <div class="row" *ngIf="!loadDir">
+                    <div class="col-12" *ngIf="DireccionesCliente.length >= 1" >
+                        <ng-container *ngFor="let item of DireccionesCliente"  >
+                            <div class="card mb-1">
+                                <div class="card-body">
+                                    <div class="row  " >
+                                        <div class="col-md-4 col-sm-4 mb-sm-0 mb-3">
+                                          <h3 class="mb-1 fs-lg">{{item.destinatario}}</h3>
+                                          <span class="d-block mb-2 fs-sm text-muted">{{item.dni}}</span>
+                                        </div>
+                                        <div class="col">
+                                            <p class="mb-1">
+                                                {{item.direccion}}
+                                            </p>
+                                            <p class="mb-1">
+                                                <span *ngIf="item.localidadBarrio" >{{item.localidadBarrio}}.</span><br>
+                                                <span *ngIf="item.municipio">{{item.municipio}} - </span>
+                                                <span *ngIf="item.departamento">{{item.departamento}} </span>
+                                            </p>
+                                        </div>
+                                        <div class="col">
+                                            <a *ngIf="item.DirPrincipal == true" class="badge bg-success">Direccion principal</a>
+                                            <a *ngIf="item.DirPrincipal == false" style="cursor: pointer;" 
+                                            class="badge bg-warning mb-2" (click)="EstablecerPrin(item._id)" >
+                                                Establecer como principal
+                                            </a>    
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-container>
+                    </div>
+                    <div class="col-12" *ngIf="DireccionesCliente.length == 0">
+                            <h4 class="h4 mb-2 text-uppercase">No se encontraron Resultados</h4>
+                            <h6 class="h6 pb-lg-3"> Es posible que no haya registrado direcciones </h6>
+                    </div>
+                </div>
+
+                <div class="row" *ngIf="loadDir">
+                    <div class="col-12 text-center">
+                        <div class="spinner-grow" style="width: 3rem; height: 3rem;" role="status">
+                            <span class="visually-hidden"></span>
+                          </div>
+                    </div>
+                </div>
 
             </div>
         </div>
     </section>
+
 
 </main>
 

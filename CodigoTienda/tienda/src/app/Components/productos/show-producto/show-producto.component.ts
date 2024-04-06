@@ -49,8 +49,9 @@ export class ShowProductoComponent {
 
               this._ProductService.ProductosRecomendados(this.producto.categoria).subscribe({
                 next: (response)=>{
-                  console.log(response);
+                  console.log(response, "este es el log del estado de solicitud");
                   this.productoRec = response.data;
+
                 },
                 error: (err)=>{
 

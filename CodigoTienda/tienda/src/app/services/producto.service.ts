@@ -26,4 +26,13 @@ export class ProductoService {
     let headers = new HttpHeaders({'Content-Type':'application/json' });
     return this._http.get(this.url+`listar_productos_recomendados/${categoria}`,{headers:headers});
    }
+
+   getEnvios():Observable<any>{
+    return this._http.get('./assets/envios.json');
+   }
+
+   ProductosNuevos(): Observable<any>{
+    let headers = new HttpHeaders({'Content-Type':'application/json' });
+    return this._http.get(this.url+`listar_productos_nuevos`,{headers:headers});
+   }
 }

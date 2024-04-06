@@ -353,7 +353,13 @@ const info_producto_tienda = async function (req, res) {
  
     let reg = await Producto.find({categoria : Cat }).sort({createdAt:-1}).limit(8);
 
-    return reg;
+        res.status(200).send({data:reg});
+ };
+
+ const listarProductosNuevos = async function (req, res) {
+ 
+    let reg = await Producto.find().sort({createdAt:-1}).limit(10);
+    res.status(200).send({ data: reg });
  };
 
 module.exports={
@@ -371,5 +377,6 @@ module.exports={
     Eliminar_img_galeria_admin,
     listar_productos_tienda,
     info_producto_tienda,
-    listar_productos_tienda_recomendados
+    listar_productos_tienda_recomendados,
+    listarProductosNuevos
 }

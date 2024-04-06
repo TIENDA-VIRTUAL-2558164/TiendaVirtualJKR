@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ClienteService } from '../../../services/cliente.service';
+import { log } from 'node:console';
+import { response } from 'express';
 
 declare var $: any;
-declare var iziToast : any;
+declare var iziToast: any;
 
 interface Departamento {
   codigo: string;
@@ -28,8 +30,10 @@ export class DireccionesComponent implements OnInit {
     principal: false
   };
 
+  public DireccionesCliente: Array<any> = [];
+  public loadDir = true;
   public token: string | null;
-  public id : string | null;
+  public id: string | null;
 
   departamentos: Departamento[] = [];
   municipios: Municipio[] = [];
@@ -42,13 +46,41 @@ export class DireccionesComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.obtenerDepartamentos()
+    this.obtenerDirecciones();
+  }
+
+  obtenerDirecciones() {
+    this._ClienteService.ObtenerDireccion(this.id, this.token).subscribe({
+      next: (response) => {
+        response.data.forEach((item: any) => {
+          this._ClienteService.DatosDivipola().subscribe({
+            next: (res) => {
+              res.forEach((elem: any) => {
+                if (item.municipio == elem.cod_mpio) {
+                  item.municipio = elem.nom_mpio;
+                }
+                if (item.departamento == elem.cod_depto) {
+                  item.departamento = elem.dpto;
+                }
+              })
+            }
+          })
+        });
+        this.DireccionesCliente = response.data;
+        this.loadDir = false;
+
+      },
+      error: (err) => {
+        console.log(err);
+
+      }
+    })
   }
 
   AddDirections(form: any) {
-    if (form) {
+    if (form.valid) {
       const data = {
-        cliente : this.id,
+        cliente: this.id,
         destinatario: this.direction.destinatario,
         dni: this.direction.dni,
         direccion: this.direction.direccion,
@@ -60,23 +92,42 @@ export class DireccionesComponent implements OnInit {
         DirPrincipal: this.direction.principal
       }
       //console.log(data);
-      
-     this._ClienteService.RegitrarDireccion(data,this.token).subscribe({
-      next: (response)=>{
-        //console.log(response);
-        iziToast.show({
-          title: 'SUCCESS',
-          titleColor: '#1DC74C',
-          class: 'text-success',
-          position: 'topRight',
-          message: 'La Direccion se ha agregado correctamente',
-        });
-      },
-      error: (err)=>{
-        console.log(err);
-        
-      }
-     })
+
+      this._ClienteService.RegitrarDireccion(data, this.token).subscribe({
+        next: (response) => {
+          this.direction = {
+            pais: '',
+            departamento: '',
+            municipio: '',
+            principal: false
+          };
+          $('#departamento').prop('disabled', true);
+          $('#municipio').prop('disabled', true);
+          $('#localidadBarrio').prop('disabled', true)
+
+          //console.log(response);
+          iziToast.show({
+            title: 'SUCCESS',
+            titleColor: '#1DC74C',
+            class: 'text-success',
+            position: 'topRight',
+            message: 'La Direccion se ha agregado correctamente',
+          });
+        },
+        error: (err) => {
+          console.log(err);
+
+        }
+      })
+    } else {
+      iziToast.show({
+        title: 'ERROR',
+        titleColor: '#FF0000',
+        color: '#FFF',
+        class: 'text-danger',
+        position: 'topRight',
+        message: 'Los datos estan incompletos',
+      });
     }
   }
 
@@ -102,46 +153,66 @@ export class DireccionesComponent implements OnInit {
     });
   }
 
+  ObtnerMunicipios() {
+    this._ClienteService.DatosDivipola().subscribe({
+      next: (response) => {
+        const municipioMap = new Map<string, Municipio>();
+
+        response.forEach((mun: any) => {
+          if (this.direction.departamento == mun.cod_depto) {
+            if (!municipioMap.has(mun.cod_mpio)) {
+              // Si el departamento no está en el Map, lo agregamos
+              municipioMap.set(mun.cod_mpio, {
+                codigoMun: mun.cod_mpio,
+                nombreMun: mun.nom_mpio
+              });
+            }
+          };
+        });
+        this.direction.municipio = '';
+        this.municipios = Array.from(municipioMap.values())
+        console.log(this.municipios);
+        //console.log(response);
+
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    });
+
+  }
+
   SelectPais() {
     if (this.direction.pais == 'Colombia') {
+      this.obtenerDepartamentos();
       $('#departamento').prop('disabled', false);
     }
   }
 
-  selectDepartamento() {
+  selectDepto() {
     if (this.direction.departamento) {
-      this._ClienteService.DatosDivipola().subscribe({
-        next: (response) =>{
-          const municipioMap = new Map<string, Municipio>();
-
-          response.forEach( (mun:any) =>{
-            if (this.direction.departamento == mun.cod_depto ) {
-              if (!municipioMap.has(mun.cod_mpio)) {
-                // Si el departamento no está en el Map, lo agregamos
-                municipioMap.set(mun.cod_mpio, {
-                  codigoMun: mun.cod_mpio,
-                  nombreMun: mun.nom_mpio
-                });
-              }
-            };
-          });
-          this.direction.municipio = '';
-          this.municipios = Array.from(municipioMap.values())
-          //console.log(this.municipios);
-          //console.log(response);
-          
-        },
-        error: (err)=>{
-          console.log(err);
-        }
-      });
-
+      this.ObtnerMunicipios();
       $('#municipio').prop('disabled', false);
     }
   }
 
-  selectMunicipio(){
-    $('#localidadBarrio').prop('disabled',false)
+  selectMunicipio() {
+    $('#localidadBarrio').prop('disabled', false)
+  }
+
+  EstablecerPrin(idDir: any) {
+    this._ClienteService.ActDireccionPrincipal(idDir, this.id, this.token).subscribe({
+      next: (response) => {
+        this.obtenerDirecciones();
+        iziToast.show({
+          title: 'SUCCESS',
+          titleColor: '#1DC74C',
+          class: 'text-success',
+          position: 'topRight',
+          message: 'Se ha establecido la Direccion principal correctamente',
+        })
+      }
+    })
   }
 
 }
