@@ -25,7 +25,7 @@ export class IndexProductoComponent {
   public filtroCatProductos = 'todos';
   public routeCategoria: any;
   public page = 1;
-  public pagesize = 12;
+  public pagesize = 6;
 
   public CarritoData : any = {
     variedad: '',

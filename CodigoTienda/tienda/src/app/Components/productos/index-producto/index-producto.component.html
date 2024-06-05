@@ -223,7 +223,7 @@
                   <div class="card card-product mx-auto">
                     <div class="card-product-img">
                       <a [routerLink]="['/productos/',item.slug]" routerLinkActive="router-link-active"  class="card-img-top">
-                        <img [src]="url+'obtener_portada/'+item.portada" alt="Product image">
+                        <img [src]="url+'obtener_portada/'+item.portada" alt="Product image" style="min-height: 285px; object-fit: cover; object-position: center;">
                       </a>
                       <div class="card-product-widgets-top">
                         <div class="star-rating ml-auto">
@@ -295,6 +295,7 @@
               <div class="form-inline flex-nowrap d-none d-sm-flex mr-3 mr-xl-5 pt-1">
                 <label for="pager-bottom" class="font-weight-bold text-nowrap mr-2 pr-1 d-none d-md-block">ver</label>
                 <select id="pager-bottom" class="custom-select" name="pagesize" [(ngModel)]="pagesize" >
+                  <option value="6" >06</option>
                   <option value="12" >12</option>
                   <option value="24">24</option>
                   <option value="48" >48</option>

@@ -8,14 +8,13 @@
   </div>
 </div>
 
-
-  <div class="card box-shadow-sm">
-    <div class="card-header">
-      <h5 style="margin-bottom: 0px;">Variedad de productos</h5>
-    </div>
-
-    <div class="card-body">
-      <div style="max-width: 48rem;">
+<div class="card box-shadow-sm">
+  <div class="card-header">
+    <h5 style="margin-bottom: 0px;">Variedad de productos</h5>
+  </div>
+  
+  <div class="card-body">
+    <div style="max-width: 48rem;">
 
         <div class="row mb-3">
           <div class="col-md-4" style="padding-right: 0px;">
@@ -29,7 +28,7 @@
                   <p class="text-muted">{{producto.descripcion}}</p>
                   <div class="d-flex align-items-center">
                     <span class="h5 d-inline-block mb-0 text-danger">${{producto.precio}}</span>
-
+                    
                   </div>
                 </h3>
               </div>
@@ -38,33 +37,33 @@
         </div>
 
         <div class="form-group row align-items-center">
-            <label class="col-md-3 col-form-label font-weight-medium" for="text-input">Titulo variedad</label>
+          <label class="col-md-3 col-form-label font-weight-medium" for="text-input">Titulo variedad</label>
             <div class="col-md-9">
               <input class="form-control" required type="text" id="titulo_variedad" placeholder="titulo variedad"
                 name="titulo_variedad" [(ngModel)]="producto.titulo_variedad">
-            </div>
-          </div>
-
-        <div class="form-group row align-items-center">
-          <label class="col-md-3 col-form-label font-weight-medium" for="text-input">Variedades</label>
-
-          <div class="col-md-5">
-            <div class="input-group">
-                <input class="form-control" type="text" placeholder="Nueva Variedad" name="nueva_variedad" [(ngModel)]="nueva_variedad">
-                <button class="btn btn-primary" type="button" (click)="AgregarVariedad()">Agregar</button>
               </div>
-          </div>
-          <div class="col-md-3"></div>
-          <div class="col-md-9">
-
-            <div class="table-responsive mt-3">
-              <table class="table table-sm" *ngIf=" producto.variedades">
-                <thead class="thead-dark">
-                  <tr>
-                    <th>Titulo Variedad</th>
-                    <th>Eliminar</th>
-                  </tr>
-                </thead>
+            </div>
+            
+            <div class="form-group row align-items-center">
+              <label class="col-md-3 col-form-label font-weight-medium" for="text-input">Variedades</label>
+              
+              <div class="col-md-5">
+                <div class="input-group">
+                  <input class="form-control" type="text" placeholder="Nueva Variedad" name="nueva_variedad" [(ngModel)]="nueva_variedad">
+                  <button class="btn btn-primary" type="button" (click)="AgregarVariedad()">Agregar</button>
+                </div>
+              </div>
+              <div class="col-md-3"></div>
+              <div class="col-md-9">
+                
+                <div class="table-responsive mt-3">
+                  <table class="table table-sm" *ngIf=" producto.variedades">
+                    <thead class="thead-dark">
+                      <tr>
+                        <th>Titulo Variedad</th>
+                        <th>Eliminar</th>
+                      </tr>
+                    </thead>
                 <ng-container *ngIf=" producto.variedades.length == 0">
                   <tbody>
                     <tr>
@@ -94,6 +93,7 @@
 
     <div class="card-footer">
       <button *ngIf="!loadBtn" class="btn btn-primary mr-3" type="button" (click)="ActualizarVariedad()">Guardar cambios</button>
+      <button class="btn btn-warning"  [routerLink]="['/panel/productos']">Regresar</button>
       <button *ngIf="loadBtn" type="button" class="btn btn-secondary">
         <span class="spinner-grow spinner-grow-sm me-2" role="status" aria-hidden="true"></span>
         Guardando...
