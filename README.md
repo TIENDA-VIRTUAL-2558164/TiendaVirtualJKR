@@ -34,6 +34,10 @@ El proyecto JKR Tienda Virtual ha sido desarrollado utilizando las siguientes te
 
 - MongoDB
 
+## Aplicativo Movil:
+
+- Flutter
+
 ## Contacto
 Si tienes alguna pregunta o comentario sobre el proyecto JKR Tienda Virtual, no dudes en ponerte en contacto con el equipo de desarrollo a través de este medio medios:
 
