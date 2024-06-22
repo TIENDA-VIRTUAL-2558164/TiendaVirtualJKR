@@ -39,19 +39,48 @@ io.on('connection',function(socket){
     })
 })
 
-mongoose.set('useFindAndModify', false);
-mongoose.connect(process.env.DB,{useUnifiedTopology: true, useNewUrlParser: true},(err,res)=>{
-    if(err){  
-        throw err;
-        console.log(err);
-    }else{
-        console.log("Corriendo....");
-        server.listen(port, function(){
-            console.log("Servidor " + port );
-        });
+const uri = process.env.DB;
 
+// mongoose.set('useFindAndModify', false);
+// console.log(process.env.DB);
+// mongoose.connect(process.env.DB,{useUnifiedTopology: true, useNewUrlParser: true},(err,res)=>{
+//     if(err){  
+//         throw err;
+//         console.log(err);
+//     }else{
+//         console.log("Corriendo....");
+//         server.listen(port, function(){
+//             console.log("Servidor " + port );
+//         });
+
+//     }
+// });
+
+// Configuración de Mongoose
+mongoose.set('strictQuery', false);
+mongoose.set('bufferCommands', false);
+
+async function connectToDatabase() {
+    try {
+        await mongoose.connect(uri, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+            serverSelectionTimeoutMS: 5000,
+            socketTimeoutMS: 45000
+        });
+        console.log("Conectado a MongoDB usando Mongoose.");
+        
+        // Levantar el servidor Express
+        server.listen(port, () => {
+            console.log(`Servidor corriendo en el puerto ${port}`);
+        });
+    } catch (err) {
+        console.error("Error conectando a MongoDB:", err);
     }
-});
+}
+
+connectToDatabase();
+
 
 //Documentacion Swagger
 const swaggerOptions = {
@@ -66,7 +95,7 @@ const swaggerOptions = {
             },
         },
             servers: [{
-                url: 'http://localhost:4201'
+                url: process.env.API_URL || 'http://localhost:4201'
             }]
         
     },
